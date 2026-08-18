@@ -1,0 +1,377 @@
+.nav-bar {
+    position: fixed;
+    width: 100%;
+    background-color: rgba(0,0,0,.75);
+    backdrop-filter: blur(10px) saturate(50%);
+    z-index: 99;
+    display: flex;
+    height: var(--nav-bar-height);
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.nav-bar > .logo-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav-bar > .logo-wrapper > .logo-hl {
+    display: flex;
+    align-items: center;
+    height: 60%;
+    padding: calc((var(--nav-bar-height) - 0.6 * var(--nav-bar-height)) / 2);
+}
+.nav-bar > .logo-wrapper > .logo-hl > .logo-emblem {
+    height: 100%;
+}
+.nav-bar > .logo-wrapper > .logo-hl > .logo-text {
+    margin-left: 10px;
+    height: 100%;
+    transition: height 0.2s ease-in-out;
+}
+
+.nav-bar > .nav-wrapper {
+    display: flex;
+    margin-right: calc(var(--nav-bar-height) / 5 * 2);
+    overflow-x: visible;
+    transition: margin-right 1s, box-shadow 1s;
+}
+@media (max-width: 400px) {
+    .nav-bar > .nav-wrapper {
+        margin: 0;
+    }
+    .nav-bar > .logo-wrapper > .logo-hl > .logo-text {
+        margin-left: 0;
+    }
+}
+/* The rule that used to live here turned this strip into a horizontal
+   scroller below 360px, with inset fade shadows to hint that there was
+   more off-screen. That was the original stylesheet conceding the nav
+   didn't fit. Items drop into the menu now, so it's gone. */
+.nav-bar > .nav-wrapper a,
+.nav-bar > .nav-wrapper span {
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: calc(var(--nav-bar-height) / 5);
+    text-align: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 calc(var(--nav-bar-height) / 5);
+    text-shadow: 0 0 50px white;
+    transition: color 0.2s, text-shadow 0.2s, text-decoration-color 0.2s;
+}
+.nav-bar > .nav-wrapper > .current-page,
+.nav-bar > .nav-wrapper a:hover {
+    color: var(--light-blue);
+    text-shadow: 0 0 50px var(--light-blue);
+}
+
+.current-page {
+    font-weight: bold;
+    text-decoration: underline !important;
+    text-decoration-color: var(--light-blue) !important;
+    text-decoration-thickness: 2.5px !important;
+    text-underline-offset: 7.5px !important;
+
+    &:hover {
+        color: var(--blue) !important;
+        text-decoration-color: var(--blue) !important;
+        text-shadow: 0 0 50px var(--blue) !important;
+    }
+}
+
+@media (max-width: 780px) {
+    .nav-bar > .logo-wrapper > .logo-hl > .logo-text {
+        height: 0;
+    }
+}
+@media (max-height: 400px) {
+    .nav-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+}
+
+/* ---- Overflow: which links survive a narrowing window ------------------
+ *
+ * Every page link is rendered twice — once here in the bar, once in the
+ * slide-out menu — and these rules decide which copy is visible. Doing it
+ * in CSS rather than by measuring in JavaScript is deliberate: a script
+ * that measures can only run after the first paint, so every page load on
+ * a phone would show the full nav and then visibly collapse it. This has
+ * no flash, no layout shift, and it still works if the script never runs.
+ *
+ * The cost is that these breakpoints are hand-tuned rather than derived.
+ * They were found by driving a browser across widths, not by arithmetic —
+ * the nav's font-size is calc(var(--nav-bar-height) / 5) and that variable
+ * is calc(25px + 2vh + 2vw), so the text scales with the viewport and the
+ * numbers are not worth trusting on paper.
+ *
+ * Priority is Brant's, ordered by what a customer needs most: Contact,
+ * Services, FAQ, About, Vision, Gallery. Rank 6 goes first, rank 1 last.
+ * The employee portal link is in none of this — it never appears in the bar.
+ *
+ * The widths below are measured, not guessed. With everything forced
+ * visible, the point at which the links stop fitting beside the logo and
+ * the button is 485px for Gallery, 375px for Vision, and about 325px for
+ * About. Each breakpoint sits roughly 10% above its crossing, because the
+ * measurement was taken with Noto Sans loaded and the fallback font the
+ * browser uses for the first paint is not the same width.
+ *
+ * Erring high on purpose: too low and the bar overflows and `overflow:
+ * hidden` silently clips a link; too high and a link moves into the menu a
+ * little sooner than it strictly had to. The second is much the better
+ * failure.
+ *
+ * Note there is no rule for ranks 1-3. Contact, Services and FAQ still fit
+ * at 320px — the narrowest phone worth designing for — with room to spare,
+ * so hiding them would be inventing a problem.
+ */
+/* `> .nav-wrapper >` is doing real work here, not decoration. The bar's
+   own `.nav-bar > .nav-wrapper a` rule sets `display: flex` at specificity
+   0,2,1, which beats a plainer `.nav-bar .nav-prio-6` at 0,2,0 — written
+   that way the links simply never hid, at any width. */
+@media (max-width: 540px) { .nav-bar > .nav-wrapper > .nav-prio-6 { display: none; } }
+@media (max-width: 420px) { .nav-bar > .nav-wrapper > .nav-prio-5 { display: none; } }
+@media (max-width: 350px) { .nav-bar > .nav-wrapper > .nav-prio-4 { display: none; } }
+
+/* ---- The menu button --------------------------------------------------
+ *
+ * Permanent at every width, not just when something has overflowed. On a
+ * wide screen nothing has dropped out — but the employee login lives only
+ * in the menu, so the way in has to be there too.
+ *
+ * Every rule here is written as `.nav-bar > .nav-wrapper ...` rather than
+ * on the class alone, and that is not for tidiness. The existing rule
+ * `.nav-bar > .nav-wrapper a, .nav-bar > .nav-wrapper span` matches any
+ * descendant span — including the three that draw the icon — and at 0,2,1
+ * it outranks a bare class selector. Without the extra qualifier the
+ * hamburger bars inherit `height: 100%` and horizontal padding and the
+ * icon comes out as three tall stripes.
+ */
+/* Icon only, at every width. Brant's call — a "MENU" label beside three
+   bars says the same thing twice, and the bars are the one control on the
+   web that needs no caption. It also keeps the button narrow, which is
+   what buys another page link on a small screen. */
+.nav-bar > .nav-wrapper > .nav-menu-button {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 calc(var(--nav-bar-height) / 5);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-family: inherit;
+    font-size: calc(var(--nav-bar-height) / 5);
+    text-transform: uppercase;
+    text-shadow: 0 0 50px white;
+    transition: color 0.2s, text-shadow 0.2s;
+}
+.nav-bar > .nav-wrapper > .nav-menu-button:hover {
+    color: var(--light-blue);
+    text-shadow: 0 0 50px var(--light-blue);
+}
+
+/* Each of these carries its own reset rather than there being one blanket
+   `.nav-menu-button span` rule undoing the bar's generic span styling.
+   That blanket version was written first and was wrong in a way worth
+   recording: at 0,3,1 it also matched .nav-menu-bars itself, so its
+   `height: auto` beat the explicit height below (0,3,0), the container
+   collapsed to its content, and the three bars stacked into one solid
+   block with no gaps between them. */
+/* The box scales with the bar; so must the strokes inside it.
+ *
+ * These were a fixed 2px, and that is what deformed the icon at high zoom.
+ * --nav-bar-height is calc(25px + 2vh + 2vw), and zooming IN narrows the
+ * layout viewport in CSS pixels, so the 2vh/2vw part shrinks towards zero
+ * and the whole variable heads for its 25px floor. The box is a fifth of
+ * that, so it bottoms out around 5px — while three 2px strokes need 6px
+ * before any gap at all. Measured: the gaps fall to 1px at
+ * --nav-bar-height: 40px and to zero by 30px, at which point the three
+ * bars render as one rounded block.
+ *
+ * Two guards, because either alone still fails. The strokes are now a
+ * fraction of the same variable (/34 gives the original 2px at the
+ * variable's usual ~68px), and the box has a floor so it cannot shrink
+ * below what three strokes plus visible gaps require.
+ */
+.nav-bar > .nav-wrapper .nav-menu-bars {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    width: max(14px, calc(var(--nav-bar-height) / 4));
+    height: max(9px, calc(var(--nav-bar-height) / 5));
+    padding: 0;
+    text-shadow: none;
+}
+.nav-bar > .nav-wrapper .nav-menu-bars > span {
+    display: block;
+    height: max(1px, calc(var(--nav-bar-height) / 34));
+    width: 100%;
+    padding: 0;
+    background-color: currentColor;
+    /* Half the stroke, so the cap stays round at every size rather than
+       turning a thin bar into a lozenge. */
+    border-radius: max(0.5px, calc(var(--nav-bar-height) / 68));
+    text-shadow: none;
+}
+
+/* ---- The panel --------------------------------------------------------
+ *
+ * Same glass as the bar, so it reads as an extension of it rather than as
+ * a separate surface. Above the bar's z-index of 99.
+ *
+ * Rendered into document.body by a portal, not into the nav. It has to be:
+ * .nav-bar carries `backdrop-filter`, and a filter or backdrop-filter makes
+ * an element a containing block for `position: fixed` descendants — so a
+ * panel nested inside it would be positioned against the bar and then
+ * clipped by the bar's own `overflow: hidden`. It would simply never
+ * appear.
+ */
+.nav-menu-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+}
+
+.nav-menu-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 101;
+    width: min(320px, 85vw);
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px) saturate(50%);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.4);
+    overflow-y: auto;
+    animation: nav-menu-in 0.2s ease-out;
+}
+
+@keyframes nav-menu-in {
+    from { transform: translateX(100%); }
+    to   { transform: translateX(0); }
+}
+/* Anyone who has asked their system not to animate things gets it without
+   the slide. */
+@media (prefers-reduced-motion: reduce) {
+    .nav-menu-panel { animation: none; }
+}
+
+.nav-menu-panel-head {
+    display: flex;
+    justify-content: flex-end;
+    height: var(--nav-bar-height);
+    flex-shrink: 0;
+}
+.nav-menu-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: calc(var(--nav-bar-height) / 2);
+    line-height: 1;
+    padding: 0 calc(var(--nav-bar-height) / 4);
+    transition: color 0.2s;
+}
+.nav-menu-close:hover {
+    color: var(--light-blue);
+}
+
+.nav-menu-links {
+    display: flex;
+    flex-direction: column;
+}
+.nav-menu-link {
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 15pt;
+    /* Generous rows: this is the primary nav on a phone now, and it is
+       pressed with a thumb rather than clicked with a cursor. */
+    padding: 16px 24px;
+    transition: color 0.2s, background-color 0.2s;
+}
+.nav-menu-link:hover {
+    color: var(--light-blue);
+    background-color: rgba(255, 255, 255, 0.06);
+}
+/* .current-page brings its own underline from the rule above; this only
+   stops the offset colliding with the row's padding. */
+.nav-menu-links > .current-page {
+    text-underline-offset: 5px !important;
+}
+
+/* ---- The employee login -----------------------------------------------
+ *
+ * Set apart rather than appended. It leaves this site entirely — different
+ * subdomain, different audience — and it is the one thing in here that a
+ * customer has no business clicking. The divider is what says so.
+ */
+.nav-menu-employee {
+    margin-top: auto;
+    padding: 20px 24px 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+.nav-menu-employee-heading {
+    display: block;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 9pt;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+.nav-menu-employee-link {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 12pt;
+    padding: 9px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 3px;
+    transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+}
+.nav-menu-employee-link:hover {
+    color: var(--light-blue);
+    border-color: var(--light-blue);
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+
+/* ---- Overflow that the media queries cannot see ------------------------
+ *
+ * The breakpoints above key off viewport width, which is the right signal
+ * for a window being resized and the wrong one for text being enlarged.
+ * Chrome on Android's "Text scaling" accessibility setting multiplies the
+ * computed font-size of every link — including ones declared in px, as
+ * these are — while the viewport width does not move a pixel. No media
+ * query fires, and the bar overflows.
+ *
+ * Measured on a 390px-wide phone: at 1.5x text the nav is 3px too wide,
+ * at 2x it is 72px too wide, and the same four links stay on screen in
+ * both cases. Same story for a slow font load, where the fallback face is
+ * wider than Noto Sans, and for any future label longer than today's.
+ *
+ * NavOverflow.tsx measures after paint and adds this class to whichever
+ * links still don't fit, lowest priority first. It only ever hides — it
+ * never reveals something a media query hid — so the two rules can't
+ * fight. On an ordinary load it finds nothing to do and changes nothing,
+ * which is why the CSS above is still doing the real work and there is
+ * still no flash.
+ */
+.nav-bar > .nav-wrapper > .nav-overflow-hidden {
+    display: none;
+}

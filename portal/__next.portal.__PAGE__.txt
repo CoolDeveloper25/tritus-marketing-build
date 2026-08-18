@@ -1,0 +1,19 @@
+1:"$Sreact.fragment"
+2:I[73521,["/_next/static/chunks/0fn5y2mgdw6t7.js"],"OutletBoundary"]
+3:"$Sreact.suspense"
+7:I[73521,["/_next/static/chunks/0fn5y2mgdw6t7.js"],"ViewportBoundary"]
+8:I[73521,["/_next/static/chunks/0fn5y2mgdw6t7.js"],"MetadataBoundary"]
+a:I[43289,["/_next/static/chunks/0fn5y2mgdw6t7.js"],"default"]
+b:I[73101,["/_next/static/chunks/0fn5y2mgdw6t7.js"],"default"]
+6:X
+d:X
+d:C
+0:{"buildId":"WjDsQVJhzVtp4LXxEM4xr","data":[{"rsc":["$","$1","c",{"children":[[["$","meta",null,{"httpEquiv":"refresh","content":"0; url=https://app.tritusinstalls.com/portal"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"window.location.replace(\"https://app.tritusinstalls.com/portal\");"}}],["$","main",null,{"style":{"padding":"80px 24px","textAlign":"center"},"children":[["$","h1",null,{"children":"Employee Portal"}],["$","p",null,{"style":{"marginTop":"12px"},"children":"Taking you to the Tritus employee portal…"}],["$","p",null,{"style":{"marginTop":"24px"},"children":["$","a",null,{"href":"https://app.tritusinstalls.com/portal","children":"Continue to the portal"}]}]]}]],null,["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"isPartial":"$@5","staleTime":"$6","varyParams":null},{"rsc":["$","$1","h",{"children":[null,["$","$L7",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L8",null,{"children":["$","$3",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Employee Portal - Tritus Installations"}],["$","meta","1",{"name":"description","content":"Sign in to the Tritus employee portal."}],["$","meta","2",{"name":"robots","content":"noindex, nofollow"}],["$","link","3",{"rel":"canonical","href":"https://app.tritusinstalls.com/portal/"}]]}]}]}],null]}],"isPartial":"$@9","staleTime":"$6","varyParams":null},{"rsc":["$","$1","c",{"children":[null,["$","$La",null,{"parallelRouterKey":"children","template":["$","$Lb",null,{}]}]]}],"isPartial":"$@c","staleTime":"$6","varyParams":"$d"}],"isUpgradeableISRFallback":false,"a":"$@e","rootVaryParams":null,"needsRuntimeRequest":"$@f"}
+4:null
+f:true
+6:300
+6:C
+e:0
+9:"$undefined"
+c:"$undefined"
+5:"$undefined"

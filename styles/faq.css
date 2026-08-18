@@ -1,0 +1,51 @@
+.page-header {
+    background-image: url(/images/misc/empty-floor.avif);
+    background-position: 0 45%;
+}
+
+#faq-content-container {
+    margin: 75px 3vw 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 20px;
+
+    .faq-unit-container {
+        background-color: var(--extra-light);
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 1px 10px rgba(0,0,0,.2);
+
+        .faq-question-wrapper {
+            background-color: var(--blue);
+            color: white;
+            padding: 15px 25px;
+            font-weight: bold;
+            border-radius: 5px 5px 0 0;
+            h3 {
+                font-size: small;
+                text-transform: none;
+            }
+        }
+        .faq-answer-wrapper {
+            padding: 15px 25px 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            a {
+                color: black;
+                transition: color .1s;
+
+                &:hover {
+                    color: var(--blue);
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    #faq-content-container  {
+        grid-template-columns: 1fr;
+    }
+}

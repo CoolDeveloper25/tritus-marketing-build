@@ -1,0 +1,280 @@
+:root {
+    --nav-bar-height: calc(25px + 2vh + 2vw);
+    --navy:         rgb(20, 39, 76);  
+    --dark-blue:    rgb(11, 61, 145);
+    --blue:         rgb(2, 119, 197);
+    --light-blue:   rgb(122, 200, 245);
+    --orange:       rgb(245, 130, 32);
+    --yellow:       rgb(247, 192, 43);
+    --extra-dark:   rgb(27, 32, 39);
+    --dark-gray:    rgb(46, 50, 61);
+    --gray:         rgb(107, 114, 128);
+    --light-gray:   rgb(229, 231, 235);
+    --extra-light:  rgb(238, 241, 245);
+}
+
+* {
+    /* font-family: "Proxima Nova Wide", sans-serif; */
+    font-family: "Noto Sans", sans-serif;
+    /* transition: 0.25s; */
+    /* background-color: magenta; */
+    margin: 0;
+    padding: 0;
+    scroll-margin-top: calc(var(--nav-bar-height) + 20px);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: white;
+    position: relative;
+}
+
+h1, h2, h3, h4 {
+    text-transform: uppercase;
+    /* font-family: "Play", sans-serif; */
+    font-weight: bold;
+}
+
+p, blockquote {
+    /* text-align: justify; */
+    hyphens: auto;
+}
+
+ul {
+    padding-left: 30px;
+    overflow: hidden;
+}
+
+figcaption {
+    font-weight: bold;
+    text-align: right;
+    font-size: small;
+    &::before {
+        content: "— ";
+    }
+}
+
+.force-lowercase {
+    text-transform: lowercase !important;
+    font-family: inherit;
+}
+
+
+.page-header {
+    min-height: 100px;
+    height: auto;
+    width: 100%;
+    padding-top: calc(var(--nav-bar-height));
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    z-index: 0;
+
+    &::before {
+        z-index: 1;
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+    }
+
+    h1 {
+        color: black;
+        background-color: white;
+        padding: 10px 40px;
+        margin: 0 10px;
+        margin-top: 100px;
+        text-align: center;
+        /* border-radius: 0 5px 0 0; */
+        position: relative;
+        z-index: 2;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: calc(100% - 1px); right: 0; bottom: -1px; left: 0;
+            background-color: white;
+            z-index: 99;
+        }
+
+        /* * * * * ROUNDED INNER CORNERS * * * * */
+        /* &::before, &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+
+            width: calc(var(--tab-rad) * 2 * var(--invert-mult));
+            height: calc(var(--tab-rad) * 2 * var(--invert-mult));
+            
+            background-color: transparent;
+        }
+        &::before {
+            left: calc(-1 * var(--tab-rad) * 2 * var(--invert-mult));
+            box-shadow: calc(var(--tab-rad) * var(--invert-mult) / 2) calc(var(--tab-rad) * var(--invert-mult) / 2) 0 white;
+            border-bottom-right-radius: calc(var(--tab-rad) * var(--invert-mult));
+        }
+        &::after {
+            right: calc(-1 * var(--tab-rad) * 2 * var(--invert-mult));
+            box-shadow: calc(-1 * var(--tab-rad) * var(--invert-mult) / 2) calc(var(--tab-rad) * var(--invert-mult) / 2) 0 white;
+            border-bottom-left-radius: calc(var(--tab-rad) * var(--invert-mult));
+        } */
+    }
+}
+
+
+.contact-banner-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 5vw;
+    margin: 25px 0;
+    gap: 65px;
+    min-height: 150px;
+    position: relative;
+    width: calc(100% - 10vw);
+
+    background-color: var(--extra-light);
+    box-shadow: 0 1px 20px rgba(0,0,0,.2);
+
+    background-image: url(/images/misc/geo-design-1.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: calc(100% + 25vw);
+
+    overflow: hidden;
+
+    z-index: 2;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        background-color: rgba(238, 241, 245, .8);
+        z-index: 1;
+    }
+
+    .contact-banner-text-wrapper {
+        display: flex;
+        flex-direction: column;
+        min-width: 50vw;
+        gap: 20px;
+        z-index: 2;
+        flex: 1;
+
+        h2 {
+            width: fit-content;
+            padding-left: 5px;
+            padding-right: 50px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--orange);
+        }
+        p {
+            padding-left: 5px;
+        }
+    }
+}
+a.hl-button {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16pt;
+
+    color: white;
+    background-color: var(--orange);
+
+    min-height: 50px;
+
+    padding: 10px 30px;
+
+    box-shadow: 0 0 15px rgba(0,0,0,.1);
+    transition: box-shadow .25s;
+
+    z-index: 3;
+
+    opacity: 90%;
+    backdrop-filter: blur(10px) saturate(50%);
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        border-radius: inherit;
+        background-color: black;
+        box-shadow: 0 0 0px black inset;
+        background-color: rgba(0,0,0,0);
+        transition: background-color 0.25s, box-shadow 0.25s;
+    }
+    
+    &:hover {
+        box-shadow: 0 0 0px rgba(0,0,0,.2);
+
+        &::before {
+            background-color: rgba(0,0,0,0.1);
+        }
+    }
+    &:active::before {
+        background-color: rgba(0,0,0,0.2);
+        box-shadow: 0 0 5px rgba(0,0,0,.1) inset;
+    }
+}
+
+
+.introductory-section {
+    margin: 45px 30px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+
+    h2, p:not(:last-of-type) {
+        margin-bottom: 20px;
+    }
+    li:not(:last-of-type) {
+        margin-bottom: 10px;
+    }
+
+    .intro-box-container {
+        background-color: var(--extra-light);
+        max-width: 100%;
+        min-width: 40vw;
+        flex: 1;
+        padding: 30px;
+    }
+    h2:not(:first-of-type) {
+        margin-top: 50px;
+    }
+}
+
+/* * * * * ARTICLE-FORMAT STYLES * * * * */
+.float-left, .float-right {
+    max-width: 400px;
+    max-height: 400px;
+    margin: 10px 25px;
+}
+.float-left {
+    float: left;
+    margin-left: 0;
+}
+.float-right {
+    float: right;
+    margin-right: 0;
+}

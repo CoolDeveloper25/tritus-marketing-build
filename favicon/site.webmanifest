@@ -1,0 +1,21 @@
+{
+  "name": "Tritus Installations",
+  "short_name": "Tritus",
+  "icons": [
+    {
+      "src": "/favicon/web-app-manifest-192x192.png?v=1.05",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicon/web-app-manifest-512x512.png?v=1.05",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#0277c5",
+  "background_color": "#1b2027",
+  "display": "standalone"
+}
